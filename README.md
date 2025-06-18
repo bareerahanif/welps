@@ -48,9 +48,10 @@ Getting Started
    npm install
 
 4. Create a .env file inside backend/:
-ANTHROPIC_API_KEY=your_actual_claude_api_key_here
+   ```bash
+   ANTHROPIC_API_KEY=your_actual_claude_api_key_here
 
-5. Run the backend server
+6. Run the backend server
    ```bash
    index.js
 
