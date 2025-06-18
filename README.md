@@ -1,71 +1,79 @@
-# welps README
+# Welps
 
-This is the README for your extension "welps". After writing up a brief description, we recommend including the following sections.
 
-## Features
+-------------------------
+How It Works
+-------------------------
+1. You type in a file (e.g., .py, .js, etc.)
+2. The extension sends your current line (linePrefix) to a local backend at http://localhost:3000/complete
+3. The backend forwards it to the Claude API
+4. The Claude response is returned as ghost text in the editor
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+-------------------------
+Project Structure
+-------------------------
+welps/
 
-For example if there is an image subfolder under your extension project workspace:
+├── backend/              # Node.js + Express backend
 
-\!\[feature X\]\(images/feature-x.png\)
+│   ├── index.js
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+│   └── .env              # (contains your Claude API key)
 
-## Requirements
+├── src/extension.ts      # VS Code extension logic
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+├── out/extension.js      # Compiled code (after tsc)
 
-## Extension Settings
+├── package.json          # Extension config
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+├── tsconfig.json
 
-For example:
+└── README.txt            
 
-This extension contributes the following settings:
+-------------------------
+Getting Started
+-------------------------
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/welps.git
+   cd welps
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+2. Install dependencies:
+    ```bash
+   npm install
 
-## Known Issues
+2. Setup the backend
+    ```bash
+   cd backend
+   npm install
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+4. Create a .env file inside backend/:
+ANTHROPIC_API_KEY=your_actual_claude_api_key_here
 
-## Release Notes
+5. Run the backend server
+   ```bash
+   index.js
 
-Users appreciate release notes as you update your extension.
+It should say:
+  - Backend running at http://localhost:3000
 
-### 1.0.0
+### Running the VS Code Extension
 
-Initial release of ...
+1. Open the root welps/ folder in VS Code.
 
-### 1.0.1
+2. Press F5 to launch the Extension Development Host.
 
-Fixed issue #.
+3. Open/ Create any .js or .py file and start typing something like:
 
-### 1.1.0
+    ```bash
+   def greet
+  If it works, you’ll see ghost text suggestions inline.
 
-Added features X, Y, and Z.
 
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+-------------------------
+Test Backend Manually
+-------------------------
+  ```bash
+    curl -X POST http://localhost:3000/complete \
+    -H "Content-Type: application/json" \
+    -d '{"prompt": "def greet"}'
