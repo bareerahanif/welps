@@ -35,7 +35,7 @@ Getting Started
 -------------------------
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/welps.git
+   git clone https://github.com/bareerahanif/welps.git
    cd welps
 
 2. Install dependencies:
